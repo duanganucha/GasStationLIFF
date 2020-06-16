@@ -190,10 +190,10 @@
         document.getElementById("userId").innerHTML = '<b>UserId:</b> ' + profile.userId;
         document.getElementById("displayName").innerHTML = '<b>DisplayName:</b> ' + profile.displayName;
         document.getElementById("statusMessage").innerHTML = '<b>StatusMessage:</b> ' + profile.statusMessage;
-        document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
+        document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken();
 
         console.log({ statusMessage : profile.statusMessage})
-        console.log({ email : profile.getDecodedIDToken().email})
+        console.log({ email : profile.getDecodedIDToken()})
 
       }).catch(err => console.error(err));
     }
