@@ -208,12 +208,13 @@
     async function main() {
       // alert("LINE Developers x Skooldio")
       await liff.init({ liffId: "1654347071-ynJqakbW" })
-      getEnvironment()
-      getUserProfile()
+
       // getContext()
       // getFriendship()
       // createUniversalLink()
       if (liff.isLoggedIn()) {
+        getEnvironment()
+        getUserProfile()
         document.getElementById("btnShare").style.display = "block"
         if (!liff.isInClient()) {
           document.getElementById("btnLogOut").style.display = "block"
