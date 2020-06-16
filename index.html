@@ -207,21 +207,18 @@
 
     async function main() {
       // alert("LINE Developers x Skooldio")
-      await liff.init({ liffId: "1654347071-ynJqakbW" })
 
-      // getContext()
       // getFriendship()
       // createUniversalLink()
+ 
+      liff.init({ liffId: "1654347071-ynJqakbW" }, () => {
       if (liff.isLoggedIn()) {
         getEnvironment()
         getUserProfile()
-        document.getElementById("btnShare").style.display = "block"
-        if (!liff.isInClient()) {
-          document.getElementById("btnLogOut").style.display = "block"
-        }
       } else {
-        document.getElementById("btnLogin").style.display = "block"
+        liff.login();
       }
+    }, err => console.error(err.code, error.message));
     }
     main()
   </script>
