@@ -15,11 +15,11 @@
   <p id="version"><b>Version:</b> </p>
   <p id="isInClient"><b>isInClient:</b> </p>
   <p id="accessToken"><b>AccessToken:</b> </p>
-  <img id="pictureUrl">
-  <p id="userId"><b>userId:</b> </p>
-  <p id="displayName"><b>displayName:</b> </p>
-  <p id="statusMessage"><b>statusMessage:</b> </p>
-  <p id="decodedIDToken"><b>email:</b> </p>
+  <img id="pictureUrl" width="25%">
+  <p id="userId"></p>
+  <p id="displayName"></p>
+  <p id="statusMessage"></p>
+  <p id="getDecodedIDToken"></p>
   <p id="type"><b>type:</b> </p>
   <p id="viewType"><b>viewType:</b> </p>
   <p id="utouId"><b>utouId:</b> </p>
@@ -190,7 +190,7 @@
         document.getElementById("userId").innerHTML = '<b>UserId:</b> ' + profile.userId;
         document.getElementById("displayName").innerHTML = '<b>DisplayName:</b> ' + profile.displayName;
         document.getElementById("statusMessage").innerHTML = '<b>StatusMessage:</b> ' + profile.statusMessage;
-        document.getElementById("decodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
+        document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
       }).catch(err => console.error(err));
     }
 
@@ -205,13 +205,12 @@
     async function main() {
       // alert("LINE Developers x Skooldio")
 
-      // getFriendship()
-      // createUniversalLink()
-
-      await  liff.init({ liffId: "1654347071-ynJqakbW" }, () => {
+      await liff.init({ liffId: "1654347071-ynJqakbW" }, () => {
         if (liff.isLoggedIn()) {
           getEnvironment()
           getUserProfile()
+          // getFriendship()
+          // createUniversalLink()
         } else {
           liff.login();
         }
