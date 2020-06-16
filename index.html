@@ -193,7 +193,7 @@
         document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken();
 
         console.log({ statusMessage : profile.statusMessage})
-        console.log({ email : profile.getDecodedIDToken()})
+        console.log({ email : profile })
 
       }).catch(err => console.error(err));
     }
