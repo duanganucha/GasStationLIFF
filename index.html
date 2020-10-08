@@ -1,26 +1,21 @@
-<!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
-  <title>My LIFF app</title>
-  <link rel="stylesheet" href="css/style.css" media="all">
-
-
+  <title>My LIFF App</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
   <p id="os"><b>OS:</b> </p>
   <p id="language"><b>Language:</b> </p>
   <p id="version"><b>Version:</b> </p>
   <p id="isInClient"><b>isInClient:</b> </p>
   <p id="accessToken"><b>AccessToken:</b> </p>
-  <img id="pictureUrl" width="25%">
-  <p id="userId"></p>
-  <p id="displayName"></p>
-  <p id="statusMessage"></p>
-  <p id="getDecodedIDToken"></p>
+  <img id="pictureUrl">
+  <p id="userId"><b>userId:</b> </p>
+  <p id="displayName"><b>displayName:</b> </p>
+  <p id="statusMessage"><b>statusMessage:</b> </p>
+  <p id="decodedIDToken"><b>email:</b> </p>
   <p id="type"><b>type:</b> </p>
   <p id="viewType"><b>viewType:</b> </p>
   <p id="utouId"><b>utouId:</b> </p>
@@ -33,8 +28,6 @@
   <p id="universalLink2"><b>Universal Link with Query params:</b> </p>
   <p><a href="liff/path/?param=9">Link to Path</a></p>
 
-  <button id="btnShare" onclick="sendShare()">Share Target Picker</button>
-  <button id="btnLogin" onclick="liff.login()">Log In</button>
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
   <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
   <button onclick="openWindow()">Open Window</button>
@@ -42,18 +35,13 @@
   <button id="btnLogOut" onclick="logOut()">Log Out</button>
   <button id="btnClose" onclick="closed()">Close</button>
 
-  <script defer src="https://www.gstatic.com/firebasejs/7.15.3/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/7.15.3/firebase-auth.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/7.15.3/firebase-firestore.js"></script>
-  <script defer src="./init-firebase.js"></script>
-
   <script src="js/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
     console.log("Hello World!")
   </script>
-  <script src="https://static.line-scdn.net/liff/edge/versions/2.1.13/sdk.js"></script>
 
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.1.13/sdk.js"></script>
   <script>
     function createUniversalLink() {
       const link1 = liff.permanentLink.createUrl()
@@ -64,7 +52,6 @@
       document.getElementById("universalLink2").append(link2)
     }
 
-
     async function shareMsg() {
       await liff.shareTargetPicker([
         {
@@ -73,7 +60,6 @@
         }
       ])
     }
-
 
     function logOut() {
       liff.logout()
@@ -85,13 +71,10 @@
     }
 
     async function scanCode() {
-      liff.scanCode().then(result => {
-        const stringifiedResult = JSON.stringify(result);
-        alert(stringifiedResult);
-        document.getElementById("scanCode").textContent = stringifiedResult;
-      });
+      const result = await liff.scanCode()
+      document.getElementById("scanCode").append(result.value)
     }
-
+    
     function openWindow() {
       liff.openWindow({
         url: "https://line.me",
@@ -109,107 +92,17 @@
       }
     }
 
-    async function sendShare() {
-      await liff.shareTargetPicker([
-        {
-          "type": "flex",
-          "altText": "Flex Message",
-          "contents": {
-            "type": "bubble",
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "spacing": "md",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "BROWN'S ADVENTURE",
-                  "size": "xl",
-                  "gravity": "center",
-                  "weight": "bold",
-                  "wrap": true
-                },
-                {
-                  "type": "box",
-                  "layout": "vertical",
-                  "spacing": "sm",
-                  "margin": "lg",
-                  "contents": [
-                    {
-                      "type": "box",
-                      "layout": "baseline",
-                      "spacing": "sm",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "Date",
-                          "flex": 1,
-                          "size": "sm",
-                          "color": "#AAAAAA"
-                        },
-                        {
-                          "type": "text",
-                          "text": "Monday 25, 9:00PM",
-                          "flex": 4,
-                          "size": "sm",
-                          "color": "#666666",
-                          "wrap": true
-                        }
-                      ]
-                    },
-                    {
-                      "type": "box",
-                      "layout": "baseline",
-                      "spacing": "sm",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "Place",
-                          "flex": 1,
-                          "size": "sm",
-                          "color": "#AAAAAA"
-                        },
-                        {
-                          "type": "text",
-                          "text": "LINE Thailand",
-                          "flex": 4,
-                          "size": "sm",
-                          "color": "#666666",
-                          "wrap": true
-                        }
-                      ]
-                    },
-                    {
-                      "type": "box",
-                      "layout": "vertical",
-                      "margin": "xxl",
-                      "contents": [
-                        {
-                          "type": "spacer"
-                        },
-                        {
-                          "type": "image",
-                          "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/linecorp_code_withborder.png",
-                          "size": "xl",
-                          "aspectMode": "cover"
-                        },
-                        {
-                          "type": "text",
-                          "text": "You can enter the theater by using this code instead of a ticket",
-                          "margin": "xxl",
-                          "size": "xs",
-                          "color": "#AAAAAA",
-                          "wrap": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+    async function sendMsg() {
+      if (liff.getContext().type !== "none") {
+        await liff.sendMessages([
+          {
+            "type": "sticker",
+            "stickerId": 1,
+            "packageId": 1
           }
-        }
-      ])
+        ])
+        alert("Message sent")
+      }
     }
 
     function getContext() {
@@ -222,22 +115,15 @@
       }
     }
 
-
     async function getUserProfile() {
-      await liff.getProfile().then(profile => {
-        document.getElementById("pictureUrl").src = profile.pictureUrl;
-        document.getElementById("userId").innerHTML = '<b>UserId:</b> ' + profile.userId;
-        document.getElementById("displayName").innerHTML = '<b>DisplayName:</b> ' + profile.displayName;
-        document.getElementById("statusMessage").innerHTML = '<b>StatusMessage:</b> ' + profile.statusMessage;
-        document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + profile.email;
-
-        console.log({ statusMessage: profile.statusMessage })
-        console.log({ email: profile.email })
-        console.log({ getDecodedIDToken: liff.getDecodedIDToken() })
-
-      }).catch(err => console.error(err));
+      const profile = await liff.getProfile()
+      document.getElementById("pictureUrl").src = profile.pictureUrl
+      document.getElementById("userId").append(profile.userId)
+      document.getElementById("statusMessage").append(profile.statusMessage)
+      document.getElementById("displayName").append(profile.displayName)
+      document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
     }
-
+    
     function getEnvironment() {
       document.getElementById("os").append(liff.getOS())
       document.getElementById("language").append(liff.getLanguage())
@@ -254,20 +140,21 @@
     }
 
     async function main() {
-      // alert("LINE Developers x Skooldio")
-
-      await liff.init({ liffId: "1654347071-ynJqakbW" }, () => {
+      liff.ready.then(() => {
+        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
         if (liff.isLoggedIn()) {
-              getEnvironment()
-              getUserProfile()
+          getEnvironment()
+          getUserProfile()
+          getContext()
+          getFriendship()
+          createUniversalLink()
         } else {
-          liff.login();
+          liff.login()
         }
-      }, err => console.error(err.code, error.message));
+      })
+      await liff.init({ liffId: "1654347071-ynJqakbW" })
     }
-    // main()
+    main()
   </script>
-
 </body>
-
 </html>
